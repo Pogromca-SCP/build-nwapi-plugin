@@ -7,10 +7,6 @@ param(
     [Parameter(Mandatory = $true)]
     [string] $workspacePath,
 
-    # Whether or not the tests should run
-    [Parameter(Mandatory = $false)]
-    [bool] $runTests = $true,
-
     # Binary files path pattern to use '$' is replaced with assembly/project name
     [Parameter(Mandatory = $false)]
     [string] $binPathPattern = "/$/bin/Release/net48/$",
@@ -19,11 +15,6 @@ param(
     [Parameter(Mandatory = $false)]
     [string[]] $dependencies = @()
 )
-
-# Run tests
-if ($runTests) {
-    dotnet test --no-build --verbosity normal
-}
 
 # Prepare artifacts
 New-Item -ItemType Directory -Force -Path D:/plugin/Artifacts

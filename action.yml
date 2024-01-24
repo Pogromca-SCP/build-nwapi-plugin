@@ -28,7 +28,7 @@ inputs:
 
   dependencies:
     description: List of assembly names to add into dependencies.zip file.
-    default: 
+    default: @()
     required: false
   
   binPath:
@@ -48,9 +48,14 @@ runs:
       shell: pwsh
       run: ${{ github.action_path }}/init_tests.ps1
 
-    - name: Run tests and prepare artifacts
+    - name: Run tests
+      if: ${{ inputs.runTests }}
       shell: pwsh
-      run: ${{ github.action_path }}/run_tests.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -runTests $${{ inputs.runTests }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Prepare artifacts
+      shell: pwsh
+      run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
