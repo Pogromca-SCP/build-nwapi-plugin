@@ -41,7 +41,7 @@ runs:
   steps:
     - name: Build project
       shell: pwsh 
-      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refVariable }} -depotDownloaderVersion ${{ inputs.depotDownloaderVersion}}
+      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refsVariable }} -depotDownloaderVersion ${{ inputs.depotDownloaderVersion}}
 
     - name: Run initial tests
       if: ${{ inputs.runTests }}
