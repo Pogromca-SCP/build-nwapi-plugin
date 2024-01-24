@@ -50,7 +50,7 @@ runs:
 
     - name: Run tests and prepare artifacts
       shell: pwsh
-      run: ${{ github.action_path }}/run_tests.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -runTests ${{ inputs.runTests }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
+      run: ${{ github.action_path }}/run_tests.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -runTests $${{ inputs.runTests }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
