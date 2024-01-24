@@ -36,8 +36,6 @@ inputs:
     default: /$/bin/Release/net48/$
     required: false
 
-outputs:
-
 runs:
   using: composite
   steps:
