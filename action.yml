@@ -7,10 +7,12 @@ branding:
   color: gray-dark
 
 inputs:
-  pluginName: Name of main plugin assembly to package.
+  pluginName:
+    description: Name of main plugin assembly to package.
     required: true
 
-  refsVariable: Name of game files references environment variable used in the project.
+  refsVariable:
+    desctiption: Name of game files references environment variable used in the project.
     default: 
     required: false
 
