@@ -28,7 +28,7 @@ inputs:
 
   dependencies:
     description: List of assembly names to add into dependencies.zip file.
-    default: @()
+    default: '@()'
     required: false
   
   binPath:
