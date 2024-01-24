@@ -3,7 +3,7 @@ description: Builds, prepares artifacts and optionally runs tests for NwPluginAP
 author: Adam Szerszenowicz (https://github.com/Pogromca-SCP)
 
 runs:
-  uses: composite
+  using: composite
   steps:
     - name: Build project
       shell: pwsh 
@@ -52,7 +52,7 @@ inputs:
     required: false
   
   binPath:
-    description: Binary files path pattern to use '$' is replaced with assembly/project name
+    description: Binary files path pattern to use '$' is replaced with assembly/project name.
     default: /$/bin/Release/net48/$
     required: false
 
