@@ -1,0 +1,59 @@
+name: Build NwPluginAPI based plugin
+description: Builds, prepares artifacts and optionally runs tests for NwPluginAPI based plugin.
+author: Adam Szerszenowicz (https://github.com/Pogromca-SCP)
+
+runs:
+  uses: composite
+  steps:
+    - name: Build project
+      shell: pwsh 
+      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refVariable }} -depotDownloaderVersion ${{ inputs.depotDownloaderVersion}}
+
+    - name: Run initial tests
+      if: ${{ inputs.runTests }}
+      shell: pwsh
+      run: ${{ github.action_path }}/init_tests.ps1
+
+    - name: Run tests and prepare artifacts
+      shell: pwsh
+      run: ${{ github.action_path }}/run_tests.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -runTests ${{ inputs.runTests }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with: 
+        name: ${{ inputs.pluginName }}
+        path: D:/plugin/Artifacts
+
+branding:
+  icon: aperture
+  color: gray-dark
+
+inputs:
+  pluginName: Name of main plugin assembly to package.
+    required: true
+
+  refsVariable: Name of game files references environment variable used in the project.
+    default: 
+    required: false
+
+  depotDownloaderVersion:
+    description: Depot downloader version to use for game files download.
+    default: 2.5.0
+    required: false
+
+  runTests:
+    description: Whether or not the tests should be run for the project.
+    default: true
+    required: false
+
+  dependencies:
+    description: List of assembly names to add into dependencies.zip file.
+    default: 
+    required: false
+  
+  binPath:
+    description: Binary files path pattern to use '$' is replaced with assembly/project name
+    default: /$/bin/Release/net48/$
+    required: false
+
+outputs:
