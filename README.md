@@ -12,7 +12,7 @@ This action does not provide a .NET environment! You need to setup it on your ow
 | Input                    | Description                                                                                                    | Required | Default value          |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
 | plugin-name              | Name of main plugin assembly/project to package.                                                               | true     |                        |
-| refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    |                        |
+| refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    | ''                     |
 | depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.        | false    | 2.5.0                  |
 | run-tests                | Whether or not the tests should be run for the project.                                                        | false    | true                   |
 | initial-test-runs        | Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`.   | false    | 3                      |
@@ -35,7 +35,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
       with:
         plugin-name: MyPlugin
 ```
@@ -53,7 +53,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
       with:
         plugin-name: MyPlugin
         refs-variable: SL_REFERENCES # Name of your environment variable used to reference SCP:SL files
@@ -72,7 +72,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
       with:
         plugin-name: MyPlugin
         dependencies: MyPlugin.CoreLib,MyPlugin.Utils
@@ -92,7 +92,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
       with:
         plugin-name: MyPlugin
         includes: MyPlugin/bin/Harmony0.dll,README.md # Any file type can be added
@@ -111,7 +111,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
       with:
         plugin-name: MyPlugin
         run-tests: false
