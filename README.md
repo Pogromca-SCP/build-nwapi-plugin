@@ -4,10 +4,11 @@
 ![GitHub dependents](https://flat.badgen.net/github/dependents-repo/Pogromca-SCP/build-nwapi-plugin)
 ![GitHub last commit](https://flat.badgen.net/github/last-commit/Pogromca-SCP/build-nwapi-plugin/main)
 
-GitHub Action that builds and prepares artifacts for NwPluginAPI based plugin.
+GitHub Action for NwPluginAPI based plugin development. Performs project build, runs tests and uploads artifacts with zipped dependencies.
 
-## Usage
-### Inputs
+This action does not provide .NET environment! You need to setup it on your own before running this action.
+
+## Inputs
 | Input                    | Description                                                                                                    | Required | Default value          |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
 | plugin-name              | Name of main plugin assembly/project to package.                                                               | true     |                        |
@@ -18,12 +19,9 @@ GitHub Action that builds and prepares artifacts for NwPluginAPI based plugin.
 | dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
 | bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
 | includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
-### Example
+## Examples
+### Minimal setup
 ```yaml
-name: Build my plugin
-
-# ...
-
 jobs:
   build:
     runs-on: windows-latest
@@ -39,4 +37,81 @@ jobs:
       uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
+```
+### Minimal setup with game files download
+```yaml
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Build, test and upload artifacts
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      with:
+        plugin-name: MyPlugin
+        refs-variable: SL_REFERENCES # Name of your environment variable used to reference SCP:SL files
+```
+### With dependency projects and adjusted bin paths
+```yaml
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Build, test and upload artifacts
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      with:
+        plugin-name: MyPlugin
+        dependencies: MyPlugin.CoreLib,MyPlugin.Utils
+        bin-path: /$/bin/Release/$ # Adjust bin path to match your project configuration
+```
+### With third-party dependencies
+```yaml
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Build, test and upload artifacts
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      with:
+        plugin-name: MyPlugin
+        includes: MyPlugin/bin/Harmony0.dll,README.md # Any file type can be added
+```
+### Without tests
+```yaml
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Build and upload artifacts
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      with:
+        plugin-name: MyPlugin
+        run-tests: false
 ```
