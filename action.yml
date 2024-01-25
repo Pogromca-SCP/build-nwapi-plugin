@@ -13,7 +13,7 @@ inputs:
 
   refs-variable:
     desctiption: Name of game files references environment variable used in the project. Triggers game files download when set.
-    default: 
+    default: ''
     required: false
 
   depot-downloader-version:
@@ -27,7 +27,7 @@ inputs:
     required: false
 
   initial-test-runs:
-    description: Amount of initial test runs. Takes effect only when `run-tests` is set to `true`.
+    description: Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`.
     default: 3
     required: false
 
