@@ -19,10 +19,10 @@ Steps to reproduce the behavior:
 **Expected behavior**
 A clear and concise description of what you expected to happen.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Workflow**
+If applicable, add used workflow file/fragment to help explain your problem.
 
-**Workflow (please complete the following information):**
+**Environment (please complete the following information):**
  - OS [e.g. windows-latest]
  - .NET Version [e.g. 8.0.0]
  - Action Version [e.g. v1]

@@ -1,5 +1,5 @@
-name: Build NwPluginAPI based plugin
-description: Builds, prepares artifacts and optionally runs tests for NwPluginAPI based plugin.
+name: Build NorthwoodPluginAPI based plugin
+description: Builds, runs tests and uploads artifacts for NwPluginAPI based plugin.
 author: Adam Szerszenowicz (https://github.com/Pogromca-SCP)
 
 branding:
@@ -8,16 +8,16 @@ branding:
 
 inputs:
   plugin-name:
-    description: Name of main plugin assembly to package.
+    description: Name of main plugin assembly/project to package.
     required: true
 
   refs-variable:
-    desctiption: Name of game files references environment variable used in the project.
+    desctiption: Name of game files references environment variable used in the project. Triggers game files download when set.
     default: 
     required: false
 
   depot-downloader-version:
-    description: Depot downloader version to use for game files download.
+    description: Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.
     default: 2.5.0
     required: false
 
@@ -27,7 +27,7 @@ inputs:
     required: false
 
   initial-test-runs:
-    description: Amount of initial test runs.
+    description: Amount of initial test runs. Takes effect only when `run-tests` is set to `true`.
     default: 3
     required: false
 
@@ -37,7 +37,7 @@ inputs:
     required: false
 
   bin-path:
-    description: Binary files path pattern to use '$' is replaced with assembly/project name.
+    description: Binary files path pattern to use, '$' is replaced with assembly/project name.
     default: /$/bin/Release/net48/$
     required: false
 
@@ -46,12 +46,12 @@ runs:
   steps:
     - name: Build project
       shell: pwsh 
-      run: ${{ github.action_path }}/src/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }}
+      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }}
 
     - name: Run initial tests
       if: ${{ inputs.runTests }}
       shell: pwsh
-      run: ${{ github.action_path }}/src/init_tests.ps1 -referencesVariable ${{ inputs.refs-variable }} -initialRuns ${{ inputs.initial-test-runs }}
+      run: ${{ github.action_path }}/init_tests.ps1 -referencesVariable ${{ inputs.refs-variable }} -initialRuns ${{ inputs.initial-test-runs }}
 
     - name: Run tests
       if: ${{ inputs.runTests }}
@@ -60,7 +60,7 @@ runs:
 
     - name: Prepare artifacts
       shell: pwsh
-      run: ${{ github.action_path }}/src/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }}
+      run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
