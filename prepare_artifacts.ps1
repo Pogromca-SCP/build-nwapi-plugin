@@ -21,8 +21,8 @@ param(
 )
 
 # Prepare artifacts
-New-Item -ItemType Directory -Force -Path D:/plugin/Artifacts
-Copy-Item "$workspacePath/$binPathPattern.dll".Replace("$", $pluginName) -Destination D:/plugin/Artifacts
+New-Item -ItemType Directory -Force -Path D:/a/plugin/Artifacts
+Copy-Item "$workspacePath/$binPathPattern.dll".Replace("$", $pluginName) -Destination D:/a/plugin/Artifacts
 
 if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
     $files = New-Object System.Collections.Generic.List[string]
@@ -37,5 +37,5 @@ if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
         $files.AddRange($includes)
     }
 
-    Compress-Archive $files.ToArray() -DestinationPath D:/plugin/Artifacts/dependencies.zip
+    Compress-Archive $files.ToArray() -DestinationPath D:/a/plugin/Artifacts/dependencies.zip
 }

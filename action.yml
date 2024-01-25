@@ -71,4 +71,4 @@ runs:
       uses: actions/upload-artifact@v4
       with: 
         name: ${{ inputs.plugin-name }}
-        path: D:/plugin/Artifacts
+        path: D:/a/plugin/Artifacts

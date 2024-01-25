@@ -9,19 +9,19 @@ param(
 )
 
 # Setup environment
-New-Item -ItemType Directory -Force -Path D:/plugin
+New-Item -ItemType Directory -Force -Path D:/a/plugin
 
 if (-not [string]::IsNullOrWhiteSpace($referencesVariable)) {
-    Set-Item "Env:\$referencesVariable" -Value "D:/plugin/SCPSL_REFERENCES/SCPSL_Data/Managed"
+    Set-Item "Env:\$referencesVariable" -Value "D:/a/plugin/SCPSL_REFERENCES/SCPSL_Data/Managed"
 
     # Setup depot downloader
-    New-Item -ItemType Directory -Force -Path D:/plugin/DepotDownloader
-    Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/depotdownloader-$depotDownloaderVersion.zip" -OutFile "D:/plugin/depotdownloader.zip"
-    Expand-Archive -Path D:/plugin/depotdownloader.zip -PassThru -DestinationPath D:/plugin/DepotDownloader
+    New-Item -ItemType Directory -Force -Path D:/a/plugin/DepotDownloader
+    Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/depotdownloader-$depotDownloaderVersion.zip" -OutFile "D:/a/plugin/depotdownloader.zip"
+    Expand-Archive -Path D:/a/plugin/depotdownloader.zip -PassThru -DestinationPath D:/a/plugin/DepotDownloader
     
     # Download SCP: Secret Laboratory
-    New-Item -ItemType Directory -Force -Path D:/plugin/SCPSL_REFERENCES
-    Start-Process -NoNewWindow -Wait -FilePath "D:/plugin/DepotDownloader/DepotDownloader.exe" -WorkingDirectory "D:/plugin/DepotDownloader" -ArgumentList "-app 996560","-dir D:/plugin/SCPSL_REFERENCES"
+    New-Item -ItemType Directory -Force -Path D:/a/plugin/SCPSL_REFERENCES
+    Start-Process -NoNewWindow -Wait -FilePath "D:/a/plugin/DepotDownloader/DepotDownloader.exe" -WorkingDirectory "D:/a/plugin/DepotDownloader" -ArgumentList "-app 996560","-dir D:/a/plugin/SCPSL_REFERENCES"
 }
 
 # Build project

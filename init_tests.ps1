@@ -13,9 +13,9 @@ if ([string]::IsNullOrWhiteSpace($referencesVariable)) {
 }
 
 $psi = New-Object System.Diagnostics.ProcessStartInfo
-$psi.FileName = "D:/plugin/SCPSL_REFERENCES/LocalAdmin.exe"
+$psi.FileName = "D:/a/plugin/SCPSL_REFERENCES/LocalAdmin.exe"
 $psi.Arguments = "7777"
-$psi.WorkingDirectory = "D:/plugin/SCPSL_REFERENCES/"
+$psi.WorkingDirectory = "D:/a/plugin/SCPSL_REFERENCES/"
 $psi.UseShellExecute = $false
 $psi.RedirectStandardInput = $true
 
