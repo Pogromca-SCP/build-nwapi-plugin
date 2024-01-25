@@ -37,7 +37,7 @@ inputs:
     required: false
 
   bin-path:
-    description: Binary files path pattern to use, '$' is replaced with assembly/project name.
+    description: Binary files path pattern to use, `$` is replaced with assembly/project name.
     default: /$/bin/Release/net48/$
     required: false
 
@@ -63,7 +63,7 @@ runs:
       run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }}
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with: 
         name: ${{ inputs.plugin-name }}
         path: D:/plugin/Artifacts
