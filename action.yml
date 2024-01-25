@@ -32,7 +32,7 @@ inputs:
     required: false
 
   dependencies:
-    description: List of assembly names to add into dependencies.zip file.
+    description: List of assembly names to add into `dependencies.zip` file.
     default: '@()'
     required: false
 
