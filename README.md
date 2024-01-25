@@ -12,7 +12,7 @@ This action does not provide a .NET environment! You need to setup it on your ow
 | Input                    | Description                                                                                                    | Required | Default value          |
 | ------------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
 | plugin-name              | Name of main plugin assembly/project to package.                                                               | true     |                        |
-| refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    | ''                     |
+| refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    | ""                     |
 | depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.        | false    | 2.5.0                  |
 | run-tests                | Whether or not the tests should be run for the project.                                                        | false    | true                   |
 | initial-test-runs        | Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`.   | false    | 3                      |
