@@ -25,8 +25,17 @@ New-Item -ItemType Directory -Force -Path D:/plugin/Artifacts
 Copy-Item "$workspacePath/$binPathPattern.dll".Replace("$", $pluginName) -Destination D:/plugin/Artifacts
 
 if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
-    [Collections.Generic.List[string]] $assemblies = $dependencies | ForEach-Object -Process { "$workspacePath/$binPathPattern.dll".Replace("$", $_) }
-    $includes = $includes | ForEach-Object -Process { "$workspacePath/$_" }
-    $assemblies.AddRange($includes)
-    Compress-Archive $assemblies.ToArray() -DestinationPath D:/plugin/Artifacts/dependencies.zip
+    $files = New-Object System.Collections.Generic.List[string]
+
+    if ($dependencies.Length -gt 0) {
+        $dependencies = $dependencies | ForEach-Object -Process { "$workspacePath/$binPathPattern.dll".Replace("$", $_) }
+        $files.AddRange($dependencies)
+    }
+
+    if ($includes -gt 0) {
+        $includes = $includes | ForEach-Object -Process { "$workspacePath/$_" }
+        $files.AddRange($includes)
+    }
+    
+    Compress-Archive $files.ToArray() -DestinationPath D:/plugin/Artifacts/dependencies.zip
 }
