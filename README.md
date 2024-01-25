@@ -15,8 +15,9 @@ GitHub Action that builds and prepares artifacts for NwPluginAPI based plugin.
 | depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.        | false    | 2.5.0                  |
 | run-tests                | Whether or not the tests should be run for the project.                                                        | false    | true                   |
 | initial-test-runs        | Amount of initial test runs. Takes effect only when `run-tests` is set to `true`.                              | false    | 3                      |
-| dependencies             | List of assembly names to add into `dependencies.zip` file.                                                    | false    | @()                    |
+| dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
 | bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
+| includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
 ### Example
 ```yaml
 name: Build my plugin

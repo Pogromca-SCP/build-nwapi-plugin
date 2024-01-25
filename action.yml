@@ -32,13 +32,18 @@ inputs:
     required: false
 
   dependencies:
-    description: List of assembly names to add into `dependencies.zip` file.
+    description: List of assembly/project names to add into `dependencies.zip` file.
     default: '@()'
     required: false
 
   bin-path:
     description: Binary files path pattern to use, `$` is replaced with assembly/project name.
     default: /$/bin/Release/net48/$
+    required: false
+  
+  includes:
+    description: Other non-project assemblies/files to add into `dependencies.zip` file (full paths).
+    default: '@()'
     required: false
 
 runs:
@@ -60,7 +65,7 @@ runs:
 
     - name: Prepare artifacts
       shell: pwsh
-      run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }}
+      run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }} -includes ${{ inputs.includes }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
