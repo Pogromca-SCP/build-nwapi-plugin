@@ -6,7 +6,7 @@
 
 GitHub Action for NwPluginAPI based plugin development. Performs project build, runs tests and uploads artifacts with zipped dependencies.
 
-This action does not provide .NET environment! You need to setup it on your own before running this action.
+This action does not provide a .NET environment! You need to setup it on your own before running this action.
 
 ## Inputs
 | Input                    | Description                                                                                                    | Required | Default value          |
@@ -19,6 +19,7 @@ This action does not provide .NET environment! You need to setup it on your own 
 | dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
 | bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
 | includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
+
 ## Examples
 ### Minimal setup
 ```yaml
