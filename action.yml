@@ -7,31 +7,36 @@ branding:
   color: gray-dark
 
 inputs:
-  pluginName:
+  plugin-name:
     description: Name of main plugin assembly to package.
     required: true
 
-  refsVariable:
+  refs-variable:
     desctiption: Name of game files references environment variable used in the project.
     default: 
     required: false
 
-  depotDownloaderVersion:
+  depot-downloader-version:
     description: Depot downloader version to use for game files download.
     default: 2.5.0
     required: false
 
-  runTests:
+  run-tests:
     description: Whether or not the tests should be run for the project.
     default: true
+    required: false
+
+  initial-test-runs:
+    description: Amount of initial test runs.
+    default: 3
     required: false
 
   dependencies:
     description: List of assembly names to add into dependencies.zip file.
     default: '@()'
     required: false
-  
-  binPath:
+
+  bin-path:
     description: Binary files path pattern to use '$' is replaced with assembly/project name.
     default: /$/bin/Release/net48/$
     required: false
@@ -41,12 +46,12 @@ runs:
   steps:
     - name: Build project
       shell: pwsh 
-      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refsVariable }} -depotDownloaderVersion ${{ inputs.depotDownloaderVersion}}
+      run: ${{ github.action_path }}/src/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }}
 
     - name: Run initial tests
       if: ${{ inputs.runTests }}
       shell: pwsh
-      run: ${{ github.action_path }}/init_tests.ps1
+      run: ${{ github.action_path }}/src/init_tests.ps1 -referencesVariable ${{ inputs.refs-variable }} -initialRuns ${{ inputs.initial-test-runs }}
 
     - name: Run tests
       if: ${{ inputs.runTests }}
@@ -55,10 +60,10 @@ runs:
 
     - name: Prepare artifacts
       shell: pwsh
-      run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.pluginName }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.binPath }} -dependencies ${{ inputs.dependencies }}
+      run: ${{ github.action_path }}/src/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with: 
-        name: ${{ inputs.pluginName }}
+        name: ${{ inputs.plugin-name }}
         path: D:/plugin/Artifacts

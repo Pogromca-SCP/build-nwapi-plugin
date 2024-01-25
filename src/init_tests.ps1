@@ -1,3 +1,17 @@
+param(
+    # Name of environment variable
+    [Parameter(Mandatory = $false)]
+    [string] $referencesVariable = $null,
+
+    # Amount of initial test runs
+    [Parameter(Mandatory = $false)]
+    [byte] $initialRuns = 3
+)
+
+if ([string]::IsNullOrWhiteSpace($referencesVariable)) {
+    exit 0
+}
+
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = "D:/plugin/SCPSL_REFERENCES/LocalAdmin.exe"
 $psi.Arguments = "7777"
@@ -17,8 +31,8 @@ Start-Sleep -s 60
 $pr.StandardInput.WriteLine("exit")
 Start-Sleep -s 2
 
-# Make initial test runs (3 first runs on new machine always fail due to some weird SCP:SL spaghetti)
-for ($i = 0; $i -lt 3; $i++) {
+# Make initial test runs (few first runs on new machine always fail due to some weird SCP:SL spaghetti)
+for ($i = 0; $i -lt $initialRuns; $i++) {
     dotnet test --no-build --verbosity quiet
     Start-Sleep -s 2
 }
