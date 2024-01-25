@@ -1,7 +1,7 @@
 param(
     # Name of environment variable
     [Parameter(Mandatory = $false)]
-    [AllowEmptyString]
+    [AllowEmptyString()]
     [string] $referencesVariable = $null,
 
     # Amount of initial test runs

@@ -1,7 +1,7 @@
 param(
     # Name of environment variable to set up
     [Parameter(Mandatory = $false)]
-    [AllowEmptyString]
+    [AllowEmptyString()]
     [string] $referencesVariable = $null,
 
     # Depot downloader version to use
