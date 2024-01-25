@@ -13,7 +13,7 @@ inputs:
 
   refs-variable:
     desctiption: Name of game files references environment variable used in the project. Triggers game files download when set.
-    default: 
+    default: ''
     required: false
 
   depot-downloader-version:
