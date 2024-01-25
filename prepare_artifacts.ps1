@@ -32,10 +32,10 @@ if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
         $files.AddRange($dependencies)
     }
 
-    if ($includes -gt 0) {
+    if ($includes.Length -gt 0) {
         $includes = $includes | ForEach-Object -Process { "$workspacePath/$_" }
         $files.AddRange($includes)
     }
-    
+
     Compress-Archive $files.ToArray() -DestinationPath D:/plugin/Artifacts/dependencies.zip
 }
