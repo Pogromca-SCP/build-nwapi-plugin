@@ -1,8 +1,8 @@
 name: Update major tag
 
-on: workflow_dispatch
-  #release:
-  #  types: [published]
+on:
+  release:
+    types: [published]
 
 jobs:
   update-tag:
