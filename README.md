@@ -35,7 +35,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
 ```
@@ -53,7 +53,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
         refs-variable: SL_REFERENCES # Name of your environment variable used to reference SCP:SL files
@@ -72,7 +72,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
         dependencies: MyPlugin.CoreLib,MyPlugin.Utils
@@ -92,7 +92,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
         includes: MyPlugin/bin/Harmony0.dll,README.md # Any file type can be added
@@ -111,7 +111,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1.0.0
+      uses: Pogromca-SCP/build-nwapi-plugin@v1
       with:
         plugin-name: MyPlugin
         run-tests: false
