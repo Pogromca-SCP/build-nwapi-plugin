@@ -5,7 +5,11 @@ param(
 
     # Depot downloader version to use
     [Parameter(Mandatory = $false)]
-    [string] $depotDownloaderVersion = "2.5.0"
+    [string] $depotDownloaderVersion = "2.5.0",
+
+    # Project build configuration
+    [Parameter(Mandatory = $false)]
+    [string] $config = "Release"
 )
 
 # Setup environment
@@ -26,4 +30,4 @@ if (-not [string]::IsNullOrWhiteSpace($referencesVariable)) {
 
 # Build project
 dotnet restore
-dotnet build --no-restore --configuration Release
+dotnet build --no-restore --configuration $config

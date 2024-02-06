@@ -19,6 +19,7 @@ This action does not provide a .NET environment! You need to setup it on your ow
 | dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
 | bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
 | includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
+| configuration            | Project build configuration. Consider changing `bin-path` input value alongside this.                          | false    | Release                |
 
 ## Examples
 ### Minimal setup
