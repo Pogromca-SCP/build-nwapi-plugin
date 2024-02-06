@@ -45,13 +45,18 @@ inputs:
     description: Other non-project assemblies/files to add into `dependencies.zip` file (full paths).
     default: '@()'
     required: false
+  
+  configuration:
+    description: Project build configuration. Consider changing `bin-path` input value alongside this.
+    default: Release
+    required: false
 
 runs:
   using: composite
   steps:
     - name: Build project
       shell: pwsh 
-      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }}
+      run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }} -config ${{ inputs.configuration }}
 
     - name: Run initial tests
       if: ${{ inputs.runTests }}
