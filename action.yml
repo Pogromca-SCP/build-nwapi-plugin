@@ -18,7 +18,7 @@ inputs:
 
   depot-downloader-version:
     description: Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.
-    default: 2.5.0
+    default: 2.7.3
     required: false
 
   run-tests:
