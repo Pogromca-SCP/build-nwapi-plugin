@@ -13,13 +13,19 @@ This action does not provide a .NET environment! You need to setup it on your ow
 | ------------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
 | plugin-name              | Name of main plugin assembly/project to package.                                                               | true     |                        |
 | refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    | $null                  |
-| depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.        | false    | 2.5.0                  |
+| depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set. Check version compatibility table below for valid values. | false    | 2.7.3                  |
 | run-tests                | Whether or not the tests should be run for the project.                                                        | false    | true                   |
 | initial-test-runs        | Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`.   | false    | 3                      |
 | dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
 | bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
 | includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
 | configuration            | Project build configuration. Consider changing `bin-path` input value alongside this.                          | false    | Release                |
+
+## Version compatibility
+| Version | Supported depot downloader version |
+| ------- | ---------------------------------- |
+| 2.x.x   | >= 2.6.0                           |
+| < 2.0.0 | < 2.6.0                            |
 
 ## Examples
 ### Minimal setup
@@ -36,7 +42,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v2
       with:
         plugin-name: MyPlugin
 ```
@@ -54,7 +60,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v2
       with:
         plugin-name: MyPlugin
         refs-variable: SL_REFERENCES # Name of your environment variable used to reference SCP:SL files
@@ -73,7 +79,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v2
       with:
         plugin-name: MyPlugin
         dependencies: MyPlugin.CoreLib,MyPlugin.Utils
@@ -93,7 +99,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build, test and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v2
       with:
         plugin-name: MyPlugin
         includes: MyPlugin/bin/Harmony0.dll,README.md # Any file type can be added
@@ -112,7 +118,7 @@ jobs:
         dotnet-version: 8.0.x
         
     - name: Build and upload artifacts
-      uses: Pogromca-SCP/build-nwapi-plugin@v1
+      uses: Pogromca-SCP/build-nwapi-plugin@v2
       with:
         plugin-name: MyPlugin
         run-tests: false

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2024-10-17
+
+### Changed
+
+- Changed the name of used depot downloader asset.
+
 ## [1.1.1] - 2024-02-29
 
 ### Fixed

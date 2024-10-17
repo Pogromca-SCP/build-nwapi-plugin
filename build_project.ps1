@@ -5,7 +5,7 @@ param(
 
     # Depot downloader version to use
     [Parameter(Mandatory = $false)]
-    [string] $depotDownloaderVersion = "2.5.0",
+    [string] $depotDownloaderVersion = "2.7.3",
 
     # Project build configuration
     [Parameter(Mandatory = $false)]
@@ -20,7 +20,7 @@ if (-not [string]::IsNullOrWhiteSpace($referencesVariable)) {
 
     # Setup depot downloader
     New-Item -ItemType Directory -Force -Path D:/a/plugin/DepotDownloader
-    Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/depotdownloader-$depotDownloaderVersion.zip" -OutFile "D:/a/plugin/depotdownloader.zip"
+    Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/DepotDownloader-framework.zip" -OutFile "D:/a/plugin/depotdownloader.zip"
     Expand-Archive -Path D:/a/plugin/depotdownloader.zip -PassThru -DestinationPath D:/a/plugin/DepotDownloader
     
     # Download SCP: Secret Laboratory
