@@ -6,7 +6,7 @@ on:
 
 jobs:
   update-tag:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: Actions-R-Us/actions-tagger@v2
         env:
