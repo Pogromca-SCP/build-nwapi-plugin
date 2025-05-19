@@ -1,5 +1,5 @@
-name: Build NorthwoodPluginAPI based plugin
-description: Builds, runs tests and uploads artifacts for NwPluginAPI based plugin.
+name: Build NorthwoodPluginAPI/LabAPI based plugin
+description: Builds, runs tests and uploads artifacts for NwPluginAPI/LabAPI based plugin.
 author: Adam Szerszenowicz (https://github.com/Pogromca-SCP)
 
 branding:
@@ -18,7 +18,7 @@ inputs:
 
   depot-downloader-version:
     description: Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set.
-    default: 2.7.4
+    default: 3.4.0
     required: false
 
   run-tests:
