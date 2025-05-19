@@ -4,28 +4,43 @@
 ![GitHub dependents](https://flat.badgen.net/github/dependents-repo/Pogromca-SCP/build-nwapi-plugin)
 ![GitHub last commit](https://flat.badgen.net/github/last-commit/Pogromca-SCP/build-nwapi-plugin/main)
 
-GitHub Action for NwPluginAPI based plugin development. Performs project build, runs tests and uploads artifacts with zipped dependencies.
+GitHub Action for [NwPluginAPI](https://github.com/northwood-studios/NwPluginAPI) or [LabAPI](https://github.com/northwood-studios/LabAPI) based plugin development. Performs project build, runs tests and uploads artifacts with zipped dependencies.
 
 This action does not provide a .NET environment! You need to setup it on your own before running this action.
 
 ## Inputs
-| Input                    | Description                                                                                                    | Required | Default value          |
-| ------------------------ | -------------------------------------------------------------------------------------------------------------- | -------- | ---------------------- |
-| plugin-name              | Name of main plugin assembly/project to package.                                                               | true     |                        |
-| refs-variable            | Name of game files references environment variable used in the project. Triggers game files download when set. | false    | $null                  |
-| depot-downloader-version | Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set. Check version compatibility table below for valid values. | false    | 2.7.4                  |
-| run-tests                | Whether or not the tests should be run for the project.                                                        | false    | true                   |
-| initial-test-runs        | Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`.   | false    | 3                      |
-| dependencies             | List of assembly/project names to add into `dependencies.zip` file.                                            | false    | @()                    |
-| bin-path                 | Binary files path pattern to use, `$` is replaced with assembly/project name.                                  | false    | /$/bin/Release/net48/$ |
-| includes                 | Other non-project assemblies/files to add into `dependencies.zip` file (full paths).                           | false    | @()                    |
-| configuration            | Project build configuration. Consider changing `bin-path` input value alongside this.                          | false    | Release                |
+### `plugin-name`
+Name of main plugin assembly/project to package. **This input is required!**
 
-## Version compatibility
-| Version | Supported depot downloader version |
-| ------- | ---------------------------------- |
-| 2.x.x   | >= 2.6.0                           |
-| < 2.0.0 | < 2.6.0                            |
+### `refs-variable `
+Name of game files references environment variable used in the project. Triggers game files download when set. **Default: `$null`**.
+
+### `depot-downloader-version`
+Depot downloader version to use for game files download. Takes effect only when `refs-variable` is set. Check version compatibility table below for valid values. **Default: `3.4.0`**.
+
+### `run-tests`
+Whether or not the tests should be run for the project. **Default: `true`**.
+
+### `initial-test-runs`
+Amount of initial test runs. Takes effect only when `refs-variable` is set and `run-tests` is set to `true`. **Default: `3`**.
+
+### `dependencies`
+List of assembly/project names to add into `dependencies.zip` file. **Default: `@()`**.
+
+### `bin-path`
+Binary files path pattern to use, `$` is replaced with assembly/project name. **Default: `/$/bin/Release/net48/$`**.
+
+### `includes`
+Other non-project assemblies/files to add into `dependencies.zip` file (full paths). **Default: `@()`**.
+
+### `configuration`
+Project build configuration. Consider changing `bin-path` input value alongside this. **Default: `Release`**.
+
+## Versions compatibility
+| Action version | Supported depot downloader versions |
+| -------------- | ----------------------------------- |
+| 2.x.x          | >= 2.6.0                            |
+| < 2.0.0        | < 2.6.0                             |
 
 ## Examples
 ### Minimal setup

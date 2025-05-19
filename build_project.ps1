@@ -5,7 +5,7 @@ param(
 
     # Depot downloader version to use
     [Parameter(Mandatory = $false)]
-    [string] $depotDownloaderVersion = "2.7.4",
+    [string] $depotDownloaderVersion = "3.4.0",
 
     # Project build configuration
     [Parameter(Mandatory = $false)]
