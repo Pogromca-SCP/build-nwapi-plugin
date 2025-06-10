@@ -59,12 +59,12 @@ runs:
       run: ${{ github.action_path }}/build_project.ps1 -referencesVariable ${{ inputs.refs-variable }} -depotDownloaderVersion ${{ inputs.depot-downloader-version }} -config ${{ inputs.configuration }}
 
     - name: Run initial tests
-      if: ${{ inputs.run-tests }}
+      if: ${{ inputs.run-tests == 'true' }}
       shell: pwsh
       run: ${{ github.action_path }}/init_tests.ps1 -referencesVariable ${{ inputs.refs-variable }} -initialRuns ${{ inputs.initial-test-runs }}
 
     - name: Run tests
-      if: ${{ inputs.run-tests }}
+      if: ${{ inputs.run-tests == 'true' }}
       shell: pwsh
       run: dotnet test --no-build --verbosity normal
 

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.3] - 2025-05-10
+
+### Fixed
+
+- Fixed `run-tests` input not working due to conditions always evaluating to `true`.
+
 ## [2.0.2] - 2025-05-19
 
 ### Added
