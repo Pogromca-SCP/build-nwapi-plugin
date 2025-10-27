@@ -73,7 +73,7 @@ runs:
       run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }} -includes ${{ inputs.includes }}
 
     - name: Upload artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with: 
         name: ${{ inputs.plugin-name }}
         path: D:/a/plugin/Artifacts
