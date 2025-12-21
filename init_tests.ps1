@@ -23,6 +23,7 @@ $fileName = "$refsPath/LocalAdmin"
 if ($IsWindows) {
     $fileName = "$fileName.exe"
 } else {
+    # Setup execution permissions on linux
     chmod +x $fileName
 }
 
@@ -42,8 +43,12 @@ $pr.StandardInput.WriteLine("keep")
 Start-Sleep -s 2
 $pr.StandardInput.WriteLine("global")
 Start-Sleep -s 60
-$pr.StandardInput.WriteLine("exit")
-Start-Sleep -s 2
+
+if ($IsWindows) {
+    # Server will crash on linux
+    $pr.StandardInput.WriteLine("exit")
+    Start-Sleep -s 2
+}
 
 # Make initial test runs (few first runs on new machine always fail due to some weird SCP:SL spaghetti)
 for ($i = 0; $i -lt $initialRuns; $i++) {
