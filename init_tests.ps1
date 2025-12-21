@@ -23,7 +23,7 @@ $fileName = "$refsPath/LocalAdmin"
 if ($IsWindows) {
     $fileName = "$fileName.exe"
 } else {
-    # Setup execution permissions on linux
+    # Setup execution permissions on Linux
     chmod +x $fileName
 }
 
@@ -45,12 +45,12 @@ $pr.StandardInput.WriteLine("global")
 Start-Sleep -s 60
 
 if ($IsWindows) {
-    # Server will crash on linux
+    # Server will crash on Linux, but on Windows we need to close it
     $pr.StandardInput.WriteLine("exit")
     Start-Sleep -s 2
 }
 
-# Make initial test runs (few first runs on new machine always fail due to some weird SCP:SL spaghetti)
+# Make initial test runs (few first runs on new machine may fail due to some weird SCP:SL spaghetti)
 for ($i = 0; $i -lt $initialRuns; $i++) {
     dotnet test --no-build --verbosity quiet
     Start-Sleep -s 2
