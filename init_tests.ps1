@@ -27,7 +27,7 @@ if ($IsWindows) {
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = $fileName
 $psi.Arguments = "7777"
-$psi.WorkingDirectory = "$refsPath/"
+#$psi.WorkingDirectory = "$refsPath/"
 $psi.UseShellExecute = $false
 $psi.RedirectStandardInput = $true
 
