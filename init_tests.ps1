@@ -12,10 +12,25 @@ if ([string]::IsNullOrWhiteSpace($referencesVariable)) {
     exit 0
 }
 
+if ($IsWindows) {
+    $refsPath = "D:/a/plugin/SCPSL_REFERENCES"
+} else {
+    $refsPath = "/home/runner/work/plugin/SCPSL_REFERENCES"
+}
+
+$fileName = "$refsPath/LocalAdmin"
+
+if ($IsWindows) {
+    $fileName = "$fileName.exe"
+} else {
+    # Setup execution permissions on Linux
+    chmod +x $fileName
+}
+
 $psi = New-Object System.Diagnostics.ProcessStartInfo
-$psi.FileName = "D:/a/plugin/SCPSL_REFERENCES/LocalAdmin.exe"
+$psi.FileName = $fileName
 $psi.Arguments = "7777"
-$psi.WorkingDirectory = "D:/a/plugin/SCPSL_REFERENCES/"
+$psi.WorkingDirectory = "$refsPath/"
 $psi.UseShellExecute = $false
 $psi.RedirectStandardInput = $true
 
@@ -28,10 +43,14 @@ $pr.StandardInput.WriteLine("keep")
 Start-Sleep -s 2
 $pr.StandardInput.WriteLine("global")
 Start-Sleep -s 60
-$pr.StandardInput.WriteLine("exit")
-Start-Sleep -s 2
 
-# Make initial test runs (few first runs on new machine always fail due to some weird SCP:SL spaghetti)
+if ($IsWindows) {
+    # Server will crash on Linux, but on Windows we need to close it
+    $pr.StandardInput.WriteLine("exit")
+    Start-Sleep -s 2
+}
+
+# Make initial test runs (few first runs on new machine may fail due to some weird SCP:SL spaghetti)
 for ($i = 0; $i -lt $initialRuns; $i++) {
     dotnet test --no-build --verbosity quiet
     Start-Sleep -s 2
