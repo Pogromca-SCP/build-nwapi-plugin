@@ -4,10 +4,11 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   update-tag:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: Actions-R-Us/actions-tagger@v2

@@ -12,10 +12,22 @@ if ([string]::IsNullOrWhiteSpace($referencesVariable)) {
     exit 0
 }
 
+if ($IsWindows) {
+    $refsPath = "D:/a/plugin/SCPSL_REFERENCES"
+} else {
+    $refsPath = "/home/runner/work/plugin/SCPSL_REFERENCES"
+}
+
+$fileName = "$refsPath/LocalAdmin"
+
+if ($IsWindows) {
+    $fileName = "$fileName.exe"
+}
+
 $psi = New-Object System.Diagnostics.ProcessStartInfo
-$psi.FileName = "D:/a/plugin/SCPSL_REFERENCES/LocalAdmin.exe"
+$psi.FileName = $fileName
 $psi.Arguments = "7777"
-$psi.WorkingDirectory = "D:/a/plugin/SCPSL_REFERENCES/"
+$psi.WorkingDirectory = "$refsPath/"
 $psi.UseShellExecute = $false
 $psi.RedirectStandardInput = $true
 

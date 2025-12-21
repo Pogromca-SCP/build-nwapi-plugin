@@ -13,19 +13,41 @@ param(
 )
 
 # Setup environment
-New-Item -ItemType Directory -Force -Path D:/a/plugin
+if ($IsWindows) {
+    $pluginPath = "D:/a/plugin"
+} elseif ($IsLinux) {
+    $pluginPath = "/home/runner/work/plugin"
+} else {
+    throw "Action is running on unsupported system, only x64 Windows and Linux are supported. Operation aborted."
+}
+
+New-Item -ItemType Directory -Force -Path $pluginPath
 
 if (-not [string]::IsNullOrWhiteSpace($referencesVariable)) {
-    Set-Item "Env:\$referencesVariable" -Value "D:/a/plugin/SCPSL_REFERENCES/SCPSL_Data/Managed"
+    Set-Item "Env:\$referencesVariable" -Value "$pluginPath/SCPSL_REFERENCES/SCPSL_Data/Managed"
 
     # Setup depot downloader
-    New-Item -ItemType Directory -Force -Path D:/a/plugin/DepotDownloader
-    Invoke-WebRequest -Uri "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/DepotDownloader-framework.zip" -OutFile "D:/a/plugin/depotdownloader.zip"
-    Expand-Archive -Path D:/a/plugin/depotdownloader.zip -PassThru -DestinationPath D:/a/plugin/DepotDownloader
+    New-Item -ItemType Directory -Force -Path "$pluginPath/DepotDownloader"
+    $url = "https://github.com/SteamRE/DepotDownloader/releases/download/DepotDownloader_$depotDownloaderVersion/DepotDownloader"
+
+    if ($IsWindows) {
+        $url = "$url-framework.zip"
+    } else {
+        $url = "$url-linux-x64.zip"
+    }
+
+    Invoke-WebRequest -Uri $url -OutFile "$pluginPath/depotdownloader.zip"
+    Expand-Archive -Path "$pluginPath/depotdownloader.zip" -PassThru -DestinationPath "$pluginPath/DepotDownloader"
     
     # Download SCP: Secret Laboratory
-    New-Item -ItemType Directory -Force -Path D:/a/plugin/SCPSL_REFERENCES
-    Start-Process -NoNewWindow -Wait -FilePath "D:/a/plugin/DepotDownloader/DepotDownloader.exe" -WorkingDirectory "D:/a/plugin/DepotDownloader" -ArgumentList "-app 996560","-dir D:/a/plugin/SCPSL_REFERENCES"
+    New-Item -ItemType Directory -Force -Path "$pluginPath/SCPSL_REFERENCES"
+    $exePath = "$pluginPath/DepotDownloader/DepotDownloader"
+
+    if ($IsWindows) {
+        $exePath = "$exePath.exe"
+    }
+
+    Start-Process -NoNewWindow -Wait -FilePath $exePath -WorkingDirectory "$pluginPath/DepotDownloader" -ArgumentList "-app 996560","-dir $pluginPath/SCPSL_REFERENCES"
 }
 
 # Build project

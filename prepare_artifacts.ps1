@@ -20,9 +20,15 @@ param(
     [string[]] $includes = @()
 )
 
+if ($IsWindows) {
+    $artifactsPath = "D:/a/plugin/Artifacts"
+} else {
+    $artifactsPath = "/home/runner/work/plugin/Artifacts"
+}
+
 # Prepare artifacts
-New-Item -ItemType Directory -Force -Path D:/a/plugin/Artifacts
-Copy-Item "$workspacePath/$binPathPattern.dll".Replace("$", $pluginName) -Destination D:/a/plugin/Artifacts
+New-Item -ItemType Directory -Force -Path $artifactsPath
+Copy-Item "$workspacePath/$binPathPattern.dll".Replace("$", $pluginName) -Destination $artifactsPath
 
 if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
     $files = New-Object System.Collections.Generic.List[string]
@@ -37,5 +43,7 @@ if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
         $files.AddRange($includes)
     }
 
-    Compress-Archive $files.ToArray() -DestinationPath D:/a/plugin/Artifacts/dependencies.zip
+    Compress-Archive $files.ToArray() -DestinationPath "$artifactsPath/dependencies.zip"
 }
+
+Set-Item "Env:\ARTIFACTS" -Value $artifactsPath
