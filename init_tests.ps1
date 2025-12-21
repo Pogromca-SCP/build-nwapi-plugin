@@ -22,12 +22,14 @@ $fileName = "$refsPath/LocalAdmin"
 
 if ($IsWindows) {
     $fileName = "$fileName.exe"
+} else {
+    chmod +x $fileName
 }
 
 $psi = New-Object System.Diagnostics.ProcessStartInfo
 $psi.FileName = $fileName
 $psi.Arguments = "7777"
-$psi.WorkingDirectory = "/home/runner/work/"
+$psi.WorkingDirectory = "$refsPath/"
 $psi.UseShellExecute = $false
 $psi.RedirectStandardInput = $true
 
