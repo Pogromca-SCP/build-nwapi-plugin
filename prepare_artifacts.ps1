@@ -45,5 +45,3 @@ if ($dependencies.Length -gt 0 -or $includes.Length -gt 0) {
 
     Compress-Archive $files.ToArray() -DestinationPath "$artifactsPath/dependencies.zip"
 }
-
-Set-Item "Env:\ARTIFACTS" -Value $artifactsPath

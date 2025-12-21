@@ -73,7 +73,15 @@ runs:
       run: ${{ github.action_path }}/prepare_artifacts.ps1 -pluginName ${{ inputs.plugin-name }} -workspacePath ${{ github.workspace }} -binPathPattern ${{ inputs.bin-path }} -dependencies ${{ inputs.dependencies }} -includes ${{ inputs.includes }}
 
     - name: Upload artifacts
+      if: runner.os == 'Windows'
       uses: actions/upload-artifact@v6
       with: 
         name: ${{ inputs.plugin-name }}
-        path: ${{ env.ARTIFACTS }}
+        path: D:/a/plugin/Artifacts
+
+    - name: Upload artifacts
+      if: runner.os != 'Windows'
+      uses: actions/upload-artifact@v6
+      with: 
+        name: ${{ inputs.plugin-name }}
+        path: /home/runner/work/plugin/Artifacts
