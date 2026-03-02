@@ -74,14 +74,14 @@ runs:
 
     - name: Upload artifacts
       if: runner.os == 'Windows'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with: 
         name: ${{ inputs.plugin-name }}
         path: D:/a/plugin/Artifacts
 
     - name: Upload artifacts
       if: runner.os != 'Windows'
-      uses: actions/upload-artifact@v6
+      uses: actions/upload-artifact@v7
       with: 
         name: ${{ inputs.plugin-name }}
         path: /home/runner/work/plugin/Artifacts
