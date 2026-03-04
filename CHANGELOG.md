@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2026-03-04
+
+### Changed
+
+- Bumped used upload artifacts action to v7.
+
 ## [2.1.0] - 2025-12-21
 
 ### Changed

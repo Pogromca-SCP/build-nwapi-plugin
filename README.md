@@ -10,7 +10,7 @@ GitHub Action for [NwPluginAPI](https://github.com/northwood-studios/NwPluginAPI
 > This action does not provide a .NET environment! You need to setup it on your own before running this action.
 
 > [!WARNING]
-> Testing capabilities are limited on Linux environments. Running tests for your project may require additional setup.
+> Testing projects targeting .NET framework isn't supported on Linux environments. Consider running this action on Windows or changing target framework in your tests to .NET/.NET Core.
 
 ## Inputs
 ### `plugin-name`
